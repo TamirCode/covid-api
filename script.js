@@ -1,14 +1,17 @@
+const HTML = document.documentElement;
+const themeToggleBtn = document.querySelector("#themeToggleBtn");
 const searchInput = document.querySelector("input");
 const table = document.querySelector("table");
+const refreshApiBtn = document.querySelector("#refreshApiBtn")
 let countries = [];
 
 // this function expects to recieve an object which includes
 // the 4 params that will be destructured on the spot
 const updateGlobalData = ({TotalDeaths, TotalConfirmed, NewDeaths, NewConfirmed}) => {
-    document.querySelector("#gct").textContent = TotalConfirmed.toLocaleString("en-US")
-    document.querySelector("#gcd").textContent = NewConfirmed.toLocaleString("en-US")
-    document.querySelector("#gdt").textContent = TotalDeaths.toLocaleString("en-US")
-    document.querySelector("#gdd").textContent = NewDeaths.toLocaleString("en-US")
+    document.querySelector("#gct").textContent = TotalConfirmed.toLocaleString("en-US");
+    document.querySelector("#gcd").textContent = NewConfirmed.toLocaleString("en-US");
+    document.querySelector("#gdt").textContent = TotalDeaths.toLocaleString("en-US");
+    document.querySelector("#gdd").textContent = NewDeaths.toLocaleString("en-US");
 }
 
 const displayCountriesTable = () => {
@@ -28,14 +31,15 @@ const displayCountriesTable = () => {
     // let filteredCountries = countries.filter(country => country.Country.includes(searchInput.value))
     // without case-sensitivity:
     let filteredCountries = countries.filter(country => {
-            return country.Country.toLowerCase().includes(searchInput.value.toLowerCase())
+            return country.Country.toLowerCase().includes(searchInput.value.toLowerCase());
         })
+
     if (!filteredCountries.length) {
         table.innerHTML += `
         <tr>
-            <th>No results found. ☹️</th>
+            <th>No results found. 🙁</th>
         </tr>`;
-        return
+        return;
     }
 
     for (const country of filteredCountries) {
@@ -53,15 +57,44 @@ const displayCountriesTable = () => {
 
 const getData = async()  => {
     try {
+        document.querySelector("#gct").textContent = "Loading...";
+        document.querySelector("#gcd").textContent = "Loading...";
+        document.querySelector("#gdt").textContent = "Loading...";
+        document.querySelector("#gdd").textContent = "Loading...";
+        table.innerHTML = `
+            <tr>
+                <th>Loading...</th>
+            </tr>`;
         const res = await fetch("https://api.covid19api.com/summary");
         const data = await res.json();
-        countries = data.Countries
+        countries = data.Countries;
         updateGlobalData(data.Global);
         displayCountriesTable();
     } catch (error) {
-        console.warn(error)
+        console.warn(error);
+        document.querySelector("#gct").textContent = "Could not fetch data."
+        document.querySelector("#gcd").textContent = "Could not fetch data.";
+        document.querySelector("#gdt").textContent = "Could not fetch data.";
+        document.querySelector("#gdd").textContent = "Could not fetch data.";
+        table.innerHTML = `
+            <tr>
+                <th>Could not fetch data.</th>
+            </tr>`;
     }
 }
+
+// refresh API button
+refreshApiBtn.addEventListener("click", getData);
+
+// darkMode button
+themeToggleBtn.addEventListener("click", () => {
+    HTML.classList.toggle("dark-mode");
+    if (themeToggleBtn.innerText == "Dark Mode") {
+        themeToggleBtn.innerText = "Light Mode"
+    } else {
+        themeToggleBtn.innerText = "Dark Mode"
+    }
+})
 
 searchInput.addEventListener("input", displayCountriesTable);
 
