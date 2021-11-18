@@ -5,8 +5,7 @@ const table = document.querySelector("table");
 const refreshApiBtn = document.querySelector("#refreshApiBtn")
 let countries = [];
 
-// this function expects to recieve an object which includes
-// the 4 params that will be destructured on the spot
+// this function expects to recieve an object that includes the 4 params which will be destructured on the spot
 const updateGlobalData = ({TotalDeaths, TotalConfirmed, NewDeaths, NewConfirmed}) => {
     document.querySelector("#gct").textContent = TotalConfirmed.toLocaleString("en-US");
     document.querySelector("#gcd").textContent = NewConfirmed.toLocaleString("en-US");
@@ -28,8 +27,6 @@ const displayCountriesTable = () => {
         </thead>`;
 
     // filter will return all the countries which include whatever is in the input value.
-    // let filteredCountries = countries.filter(country => country.Country.includes(searchInput.value))
-    // without case-sensitivity:
     let filteredCountries = countries.filter(country => {
             return country.Country.toLowerCase().includes(searchInput.value.toLowerCase());
         })
@@ -90,9 +87,9 @@ refreshApiBtn.addEventListener("click", getData);
 themeToggleBtn.addEventListener("click", () => {
     HTML.classList.toggle("dark-mode");
     if (themeToggleBtn.innerText == "Dark Mode") {
-        themeToggleBtn.innerText = "Light Mode"
+        themeToggleBtn.innerText = "Light Mode";
     } else {
-        themeToggleBtn.innerText = "Dark Mode"
+        themeToggleBtn.innerText = "Dark Mode";
     }
 })
 

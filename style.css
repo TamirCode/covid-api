@@ -48,6 +48,14 @@ body {
     background-color: rgb(255, 158, 147);
 }
 
+html.dark-mode .global-cases {
+    background-color: rgb(255, 158, 147);
+}
+
+html.dark-mode .global-deaths {
+    background-color: turquoise;
+}
+
 .by-country {
     grid-area: bc;
     overflow: hidden;
@@ -72,7 +80,7 @@ h1, p {
 
 .table-container {
     width: 100%;
-    height: 100%;
+    height: calc(100% - 70px);
     overflow-y: auto;
 }
 
@@ -124,10 +132,6 @@ button {
     font-weight: 500;
     cursor: pointer;
 }
-
-
-
-
 
 @media (max-width: 910px) {
     .container {
