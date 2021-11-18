@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;200;300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.container {
+    display: grid;
+    gap: 15px;
+    padding: 15px;
+    width: 100vw;
+    height: 100vh;
+    grid-template-rows: 30fr 70fr;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+        "gc gd"
+        "bc bc";
+}
+
+.global-cases, .global-deaths {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+        "title title"
+        "daily total";
+    padding:  15px;
+    min-height: 130px;
+}
+
+.global-cases {
+    grid-area: gc;
+    background-color: turquoise;
+}
+
+.global-deaths {
+    grid-area: gd;
+    background-color: rgb(255, 158, 147);
+}
+
+.by-country {
+    grid-area: bc;
+    overflow-y: auto;
+}
+
+.title {
+    grid-area: title;
+}
+
+.daily {
+    grid-area: daily;
+}
+
+.total {
+    grid-area: total;
+}
+
+h1, p {
+    padding: 5px 0;
+    font-size: clamp(10px, 20px, 25px)
+}
+
+table {
+    width: 100%;
+    text-align: left;
+    border-spacing: 0;
+    overflow-y: auto;
+}
+
+td {
+    padding-top: 7px 5px;
+}
+
+th {
+    padding-bottom: 7px;
+    background-color: white;
+    Position:sticky;
+    top: 0;
+}
+
+tbody:nth-child(even) {
+    background-color: rgb(238, 238, 238);
+}
+
+tbody:nth-child(odd) {
+    background-color: rgb(255, 255, 255);
+}
+
+tbody:hover {
+    background: rgb(255, 245, 199);
+}
+
+.by-country input {
+    width: 100%;
+    margin: 15px 0;
+    padding: 5px;
+    font-size: medium;
+}
+
+
+@media (max-width: 910px) {
+    .container {
+        grid-template-rows: 1fr 1fr 20fr;
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+            "gc"
+            "gd"
+            "bc";
+    }
+}
+
+@media (max-width: 450px) {
+    .global-cases, .global-deaths {
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+            "title"
+            "daily"
+            "total";
+    }
+}
+
+@media (max-height: 360px) {
+    .global-cases, .global-deaths {
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-areas: 
+            "title daily total";
+    }
+}
+
+@media (max-height: 360px) and (max-width: 910px) {
+    .container {
+        grid-template-rows: 1fr 1fr 45fr;
+    }
+}
