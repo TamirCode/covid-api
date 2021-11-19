@@ -13,26 +13,26 @@
     <div class="container">
 
         <div class="global-cases">
-            <h2 class="title">Cases</h2>
+            <h1 class="title">Global Cases</h1>
             <div class="total">
-                <p>total</p>
-                <h1 id="gct">Loading...</h1>
+                <h2>total</h2>
+                <h3 id="gct">Loading...</h3>
             </div>
             <div class="daily">
-                <p>daily</p>
-                <h1 id="gcd">Loading...</h1>
+                <h2>daily</h2>
+                <h3 id="gcd">Loading...</h3>
             </div>
         </div>
 
         <div class="global-deaths">
-            <h2 class="title">Deaths</h2>
+            <h1 class="title">Global Deaths</h1>
             <div class="total">
-                <p>total</p>
-                <h1 id="gdt">Loading...</h1>
+                <h2>total</h2>
+                <h3 id="gdt">Loading...</h3>
             </div>
             <div class="daily">
-                <p>daily</p>
-                <h1 id="gdd">Loading...</h1>
+                <h2>daily</h2>
+                <h3 id="gdd">Loading...</h3>
             </div>
         </div>
 
@@ -40,6 +40,17 @@
             
             <div class="search-container">
                 <input type="text" placeholder="search...">
+                <div class="sort-container">
+                    <label for="sort-select">Sort:</label>
+                    <select id="sort-select">
+                        <option value="dog">ABC: Descending</option>
+                        <option value="dog">ABC: Ascending</option>
+                        <option value="cat">Cases: Descending</option>
+                        <option value="hamster">Cases: Ascending</option>
+                        <option value="cat">Deaths: Descending</option>
+                        <option value="hamster">Deaths: Ascending</option>
+                    </select>
+                </div>
                 <button id="refreshApiBtn">Refresh API</button>
                 <button id="themeToggleBtn">Dark Mode</button>
             </div>
@@ -58,3 +69,14 @@
 
 </body>
 </html>
+
+<!--
+todo:
+
+- add sorting JS
+
+- dark mode to LS
+
+- make dark mode transition smooth
+
+-->
