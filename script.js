@@ -7,7 +7,7 @@ const sortInput = document.querySelector("#sort-select");
 let countries = [];
 
 // this function expects to recieve an object that includes the 4 params which will be destructured on the spot
-const updateGlobalData = ({TotalDeaths, TotalConfirmed, NewDeaths, NewConfirmed}) => {
+function updateGlobalData({TotalDeaths, TotalConfirmed, NewDeaths, NewConfirmed}) {
     document.querySelector("#gct").textContent = TotalConfirmed.toLocaleString("en-US");
     document.querySelector("#gcd").textContent = NewConfirmed.toLocaleString("en-US");
     document.querySelector("#gdt").textContent = TotalDeaths.toLocaleString("en-US");
@@ -43,16 +43,16 @@ function sortOrder(array) {
     }
 }
 
-const displayCountriesTable = () => {
+function renderTable() {
     
     table.innerHTML = `
         <thead>
             <tr>
-                <th>Country</th>
+                <th onclick="sortByCountriesTH()">Country</th>
                 <th>Daily Cases</th>
-                <th>Total Cases</th>
+                <th onclick="sortByCasesTH()">Total Cases</th>
                 <th>Daily Deaths</th>
-                <th>Total Deaths</th>
+                <th onclick="sortByDeathsTH()">Total Deaths</th>
             </tr>
         </thead>`;
 
@@ -86,7 +86,7 @@ const displayCountriesTable = () => {
     }
 }
 
-const getData = async()  => {
+async function fetchData() {
     try {
         document.querySelector("#gct").textContent = "Loading...";
         document.querySelector("#gcd").textContent = "Loading...";
@@ -100,7 +100,7 @@ const getData = async()  => {
         const data = await res.json();
         countries = data.Countries;
         updateGlobalData(data.Global);
-        displayCountriesTable();
+        renderTable();
     } catch (error) {
         console.warn(error);
         document.querySelector("#gct").textContent = "Could not fetch data."
@@ -114,7 +114,36 @@ const getData = async()  => {
     }
 }
 
+function sortByCountriesTH() {
+    if (sortInput.value === "abc") {
+        sortInput.value = "cba";
+    } else {
+        sortInput.value = "abc"
+    }
+    renderTable()
+}
 
+function sortByCasesTH() {
+    if (sortInput.value === "c321") {
+        sortInput.value = "c123";
+    } else {
+        sortInput.value = "c321"
+    }
+    renderTable()
+}
+
+function sortByDeathsTH() {
+    if (sortInput.value === "d321") {
+        sortInput.value = "d123";
+    } else {
+        sortInput.value = "d321"
+    }
+    renderTable()
+}
+
+searchInput.addEventListener("input", renderTable);
+sortInput.addEventListener("change", renderTable)
+refreshApiBtn.addEventListener("click", fetchData);
 
 // darkMode button
 themeToggleBtn.addEventListener("click", () => {
@@ -126,8 +155,4 @@ themeToggleBtn.addEventListener("click", () => {
     }
 })
 
-searchInput.addEventListener("input", displayCountriesTable);
-sortInput.addEventListener("change", displayCountriesTable)
-refreshApiBtn.addEventListener("click", getData);
-
-getData();
+fetchData();

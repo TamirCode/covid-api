@@ -104,8 +104,15 @@ table {
     border-spacing: 0;
 }
 
-tr:first-child {
+thead tr {
     height: 30px;
+    box-shadow: 0 2px 20px 5px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+}
+
+html.dark-mode thead tr {
+    box-shadow: none;
 }
 
 td, th {
@@ -115,9 +122,10 @@ td, th {
 th {
     padding-bottom: 7px;
     background-color: white;
-    Position:sticky;
-    top: 0;
-    transform: translateY(-2px); /* fixes chrome's white-space bug */
+}
+
+th:nth-child(odd) {
+    cursor: pointer;
 }
 
 tbody:nth-child(even) {
@@ -134,13 +142,13 @@ tbody:hover {
 
 .search-container {
     display: grid;
-    grid-template-columns: 3fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(6, 1fr);
     margin: 0 0 15px 0;
     height: 32px;
     width: 100%;
     gap: 5px;
     grid-template-areas:
-        "search sort refresh darkmode";
+        "search search search sort refresh darkmode";
 }
 
 input, button, .sort-container {
