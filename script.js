@@ -3,6 +3,7 @@ const themeToggleBtn = document.querySelector("#themeToggleBtn");
 const searchInput = document.querySelector("input");
 const table = document.querySelector("table");
 const refreshApiBtn = document.querySelector("#refreshApiBtn")
+const sortInput = document.querySelector("#sort-select");
 let countries = [];
 
 // this function expects to recieve an object that includes the 4 params which will be destructured on the spot
@@ -11,6 +12,35 @@ const updateGlobalData = ({TotalDeaths, TotalConfirmed, NewDeaths, NewConfirmed}
     document.querySelector("#gcd").textContent = NewConfirmed.toLocaleString("en-US");
     document.querySelector("#gdt").textContent = TotalDeaths.toLocaleString("en-US");
     document.querySelector("#gdd").textContent = NewDeaths.toLocaleString("en-US");
+}
+
+// mutates the given array
+function sortOrder(array) {
+    if (sortInput.value === "cba") {
+        array.sort((a, b) => {
+            if (a.Country.toUpperCase() > b.Country.toUpperCase()) { return -1; }
+            if (a.Country.toUpperCase() < b.Country.toUpperCase()) { return 1; }
+            return 0;
+        });
+    } else if (sortInput.value === "c123") {
+        array.sort((a, b) => {
+            return a.TotalConfirmed - b.TotalConfirmed;
+        });
+    } else if (sortInput.value === "c321") {
+        array.sort((a, b) => {
+            return b.TotalConfirmed - a.TotalConfirmed;
+        });
+    } else if (sortInput.value === "d123") {
+        array.sort((a, b) => {
+            return a.TotalDeaths - b.TotalDeaths;
+        });
+    } else if (sortInput.value === "d321") {
+        array.sort((a, b) => {
+            return b.TotalDeaths - a.TotalDeaths;
+        });
+    } else {
+        console.log("input has wierd value")
+    }
 }
 
 const displayCountriesTable = () => {
@@ -39,6 +69,10 @@ const displayCountriesTable = () => {
         return;
     }
 
+    if (sortInput.value != "abc") {
+        sortOrder(filteredCountries);
+    }
+    
     for (const country of filteredCountries) {
         // .toLocaleString("en-US") converts number to str number with commas
         table.innerHTML += `
@@ -80,8 +114,7 @@ const getData = async()  => {
     }
 }
 
-// refresh API button
-refreshApiBtn.addEventListener("click", getData);
+
 
 // darkMode button
 themeToggleBtn.addEventListener("click", () => {
@@ -94,5 +127,7 @@ themeToggleBtn.addEventListener("click", () => {
 })
 
 searchInput.addEventListener("input", displayCountriesTable);
+sortInput.addEventListener("change", displayCountriesTable)
+refreshApiBtn.addEventListener("click", getData);
 
 getData();

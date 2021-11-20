@@ -6,6 +6,10 @@
     font-family: 'Roboto Mono', monospace;
 }
 
+html {
+    background-color: white;
+}
+
 html.dark-mode {
     filter: invert(1);
 }
@@ -16,7 +20,7 @@ body {
 }
 
 .container {
-    background: white;
+    background-color: white;
     display: grid;
     gap: 15px;
     padding: 15px;
@@ -148,7 +152,7 @@ input, button, .sort-container {
 
 input:focus, .sort-container:focus {
     outline: none;
-    box-shadow: 0 3px 10px rgb(0 0 0 / 0.4);
+    box-shadow: 0 1px 10px rgb(0 0 0 / 0.4);
 }
 
 #sort-select:focus, #sort-select:active, #sort-select:focus-visible {
