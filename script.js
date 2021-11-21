@@ -33,6 +33,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const refreshApiBtn = document.querySelector("#refreshApiBtn")
     const sortInput = document.querySelector("#sort-select");
     let countries = [];
+    let lastRefreshedApiDate;
         
         // this function expects to recieve an object that includes the 4 params which will be destructured on the spot
     function updateGlobalData({TotalDeaths, TotalConfirmed, NewDeaths, NewConfirmed}) {
@@ -129,6 +130,7 @@ window.addEventListener('DOMContentLoaded', () => {
             countries = data.Countries;
             updateGlobalData(data.Global);
             renderTable();
+            lastRefreshedApiDate = new Date();
         } catch (error) {
             console.warn(error);
             document.querySelector("#gct").textContent = "Could not fetch data."
@@ -169,10 +171,37 @@ window.addEventListener('DOMContentLoaded', () => {
         renderTable()
     }
 
+    function timePassedSinceFetch(miliseconds) {
+        let tooltip = refreshApiBtn.firstElementChild;
+        msPassed = new Date(miliseconds);
+        if (msPassed < 1000) {
+            tooltip.innerText = "Last refreshed: now.";
+            return;
+        }
+        // 24 hours = 86400000 miliseconds
+        if (msPassed < 86400000) {
+            if (msPassed.getUTCHours() == 0) {
+                if (msPassed.getMinutes() == 0) {
+                    tooltip.innerText = `Last refreshed: ${msPassed.getUTCSeconds()} sec ago.`;
+                } else {
+                    tooltip.innerText = `Last refreshed: ${msPassed.getUTCMinutes()} min ago.`;
+                }
+            } else {
+                tooltip.innerText = `Last refreshed: ${msPassed.getUTCHours()} hours ago.`;
+            }
+        } else {
+            tooltip.innerText = "Last refreshed: over 24 hours ago.";
+        }
+    }
+
+
     searchInput.addEventListener("input", renderTable);
     sortInput.addEventListener("change", renderTable)
     refreshApiBtn.addEventListener("click", fetchData);
-
+    refreshApiBtn.addEventListener("mouseover", () => {
+        timePassedSinceFetch(Math.abs((new Date()) - lastRefreshedApiDate)) // passes the difference in miliseconds (now - last).
+    })
+    
     fetchData();
 
 
