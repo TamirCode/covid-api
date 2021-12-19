@@ -1,74 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <script src="darkmode.js"></script>
-    <script src="script.js" defer></script>
-    <title>Covid API</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="./favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="script.js" defer></script>
+        <title>Cryptopia</title>
+    </head>
 <body>
+<header>
+    <nav>
+        <div class="triangle-page-marker" data-current-page="home"></div>
+        <button id="home-btn"><span>Home</span></button>
+        <button id="charts-btn"><span>Charts</span></button>
+        <button id="about-btn"><span>About</span></button>
+    </nav>
+</header>
+<div class="parallax-img"></div>
+<h1 class="title">Cryptopia</h1>
 
-    <div class="container">
+<main>
+    <img class="loading" src="./img/loading.gif" alt="loadingIMG">
+    <!-- JS -->            
+</main>
 
-        <div class="global-cases">
-            <h1 class="title">Global Cases</h1>
-            <div class="total">
-                <h2>total</h2>
-                <h3 id="gct">Loading...</h3>
-            </div>
-            <div class="daily">
-                <h2>daily</h2>
-                <h3 id="gcd">Loading...</h3>
+<!-- More Info Popup -->
+<div class="popup-dark-overlay">    
+    <div class="popup-container">
+        <div class="popup-header">
+            <h1>You can only select up to 5 coins.</h1>
+            <button class="popup-exit-button">
+                <i class="fa fa-close"></i>
+            </button>
+        </div>
+        <div class="popup-body">
+            <div class="flex-row">
+                <!-- JS -->
             </div>
         </div>
-
-        <div class="global-deaths">
-            <h1 class="title">Global Deaths</h1>
-            <div class="total">
-                <h2>total</h2>
-                <h3 id="gdt">Loading...</h3>
-            </div>
-            <div class="daily">
-                <h2>daily</h2>
-                <h3 id="gdd">Loading...</h3>
-            </div>
-        </div>
-
-        <div class="by-country">
-            
-            <div class="search-container">
-                <input type="text" placeholder="search...">
-                <div class="sort-container">
-                    <label for="sort-select">Sort:</label>
-                    <select id="sort-select">
-                        <option value="abc">ABC: Ascending</option>
-                        <option value="cba">ABC: Descending</option>
-                        <option value="c123">Cases: Ascending</option>
-                        <option value="c321">Cases: Descending</option>
-                        <option value="d123">Deaths: Ascending</option>
-                        <option value="d321">Deaths: Descending</option>
-                    </select>
-                </div>
-                <button id="refreshApiBtn">Refresh API<span class="tooltip">Last refreshed: </span></button>
-                <!-- Added by JS bellow: -->
-                <!-- <button id="themeToggleBtn">Dark Mode</button> -->
-            </div>
-
-            <div class="table-container">
-                <table>
-                    <tr>
-                        <th>Loading...</th>
-                    </tr>
-                </table>
-            </div>
-            
-        </div>
-
     </div>
-    
+</div>
+
 </body>
 </html>
-
